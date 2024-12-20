@@ -13,3 +13,29 @@ header > p {
   max-width: 350px;
   color: #8E8E8E;
 }
+
+section.game-status{
+  text-align: center;
+  margin: 20px auto;
+  padding: 6px 0;
+  border-radius: 4px;
+  background-color: #10A95B;
+  color: #F9F4DA;
+}
+
+section.game-status h2{
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+section.language-chips{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  justify-content: center;
+  max-width: 350px;
+}
+section.language-chips span{
+  border-radius: 3px;
+  padding: 5px;
+}
