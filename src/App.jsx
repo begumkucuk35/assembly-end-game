@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import { languages } from "./languages";
 import { clsx } from "clsx";
+import { getFarewellText } from "./utils";
 
 function App() {
   // State values
@@ -17,6 +18,10 @@ function App() {
     .every((letter) => guessedLetter.includes(letter));
   const isGameLost = wrongGuessCount >= languages.length - 1;
   const isGameOver = isGameWon || isGameLost;
+
+  const lastGuessedLetter = guessedLetter[guessedLetter.length - 1];
+  const isLastGuessIncorrect =
+    lastGuessedLetter && !currentWord.includes(lastGuessedLetter);
 
   // Static value
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
@@ -72,8 +77,9 @@ function App() {
   });
   const gameStatusClass = clsx("game-status", {
     won: isGameWon,
-    lost: isGameLost
-})
+    lost: isGameLost,
+    farewell: !isGameOver && isLastGuessIncorrect
+  });
   return (
     <main>
       <header>
@@ -84,7 +90,7 @@ function App() {
         </p>
       </header>
       <section className={gameStatusClass}>
-        {isGameOver && (
+        {isGameOver ? (
           <>
             <h2>{isGameWon ? "You win!" : "Game over!"}</h2>
             <p>
@@ -93,6 +99,8 @@ function App() {
                 : "You lose! Better start learning Assembly 😭"}
             </p>
           </>
+        ) : (
+          isLastGuessIncorrect && <p className="farewell-message">{getFarewellText(languages[wrongGuessCount - 1].name)}</p>
         )}
       </section>
       <section className="language-chips">{languageElements}</section>
